@@ -53,4 +53,8 @@ public class AuthorisationPage extends BasePage {
         findByXpath("//*[@class='resend resendEmail']").click();
         return this;
     }
+
+    public String getResendText() {
+        return findByXpath("//*[@class='veryficationStatus success']").getText();
+    }
 }

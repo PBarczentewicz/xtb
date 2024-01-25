@@ -4,6 +4,7 @@ import com.example.piotrkrupa.MailService;
 import com.example.piotrkrupa.base.BaseTest;
 import com.example.piotrkrupa.testdata.LoginTestData;
 import org.json.JSONObject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -26,6 +27,7 @@ public class LoginUserTest extends BaseTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Niepoprawne logowanie uzytkownika")
     @MethodSource("parametersIncorrectLogin")
     public void incorrectLogin(String userLogin, String userPassword) {
 
@@ -35,6 +37,7 @@ public class LoginUserTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Poprawne logowanie uzytkownika")
     public void correctLogin() throws InterruptedException {
         MailService mailService = new MailService();
         mailService.clearMail();

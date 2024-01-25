@@ -5,6 +5,7 @@ import com.example.piotrkrupa.base.BaseTest;
 import com.example.piotrkrupa.testdata.LoginTestData;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -36,12 +37,14 @@ public class LoginAuthTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Anulowanie autoryzacji dwuskladnikowej")
     public void cancelAuthorisation() {
         authorisationPage.cancelAuth();
         assertTrue(authorisationPage.isElementExist("//*[@id='loginFormContainer']"));
     }
 
     @ParameterizedTest
+    @DisplayName("Niepoprawny kod autoryzacji")
     @ValueSource(strings = {"", "123456", "000000"})
     public void incorrectCode(String code) {
 
@@ -51,10 +54,14 @@ public class LoginAuthTest extends BaseTest {
     }
 
     @Test
+    @DisplayName("Ponowne wysłanie kodu autoryzacji i poprawne zalogoawnie użytkownika")
     public void resendCodeAndLogin() throws InterruptedException {
         mailService.clearMail();
         authorisationPage.resendEmail();
-        Thread.sleep(1000);
+
+        assertEquals("Kod został ponownie wysłany", authorisationPage.getResendText());
+        Thread.sleep(2000);
+
         JSONObject verificationMail = mailService.getMail();
         String newAuthCode = authorisationPage.getVerificationCode(verificationMail);
 
@@ -68,9 +75,12 @@ public class LoginAuthTest extends BaseTest {
     }
 
     @Test
-    public void oldCodeAndError() {
+    @DisplayName("Uzycie niewaznego kodu autoryzacji")
+    public void oldCodeAndError() throws InterruptedException {
         mailService.clearMail();
         authorisationPage.resendEmail();
+        Thread.sleep(2000);
+
         JSONObject verificationMail = mailService.getMail();
         String newAuthCode = authorisationPage.getVerificationCode(verificationMail);
 

@@ -2,6 +2,7 @@ package com.example.piotrkrupa.test;
 
 import com.example.piotrkrupa.base.BaseTest;
 import com.example.piotrkrupa.testdata.LoginTestData;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -23,6 +24,7 @@ public class LoginFormTest extends BaseTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Weryfikacja pol wymaganych formularza logowania")
     @MethodSource("parametersRequiredField")
     public void requiredField(String userLogin, String userPassword) {
         navigateToLoginPage();
@@ -38,6 +40,7 @@ public class LoginFormTest extends BaseTest {
     }
 
     @ParameterizedTest
+    @DisplayName("Uzycie nieobslugiwanych znakow dla pola LOGIN")
     @ValueSource(strings = {"@", "#", "+", "$"})
     public void userLoginSpecialCharacters(String userLogin) {
         navigateToLoginPage();
