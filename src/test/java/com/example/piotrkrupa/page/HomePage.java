@@ -1,7 +1,9 @@
 package com.example.piotrkrupa.page;
 
 import com.example.piotrkrupa.base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class HomePage extends BasePage {
 
@@ -12,8 +14,15 @@ public class HomePage extends BasePage {
         this.driver = driver;
     }
 
-    public String getLoggedUser(){
-        return findById("login_user_name").getAttribute("textContent");
+    public HomePage setNameForm(String name){
+        findById("name").sendKeys(name);
+        return this;
     }
+
+    public HomePage setEmailForm(String emailForm){
+        findById("name").sendKeys(emailForm);
+        return this;
+    }
+
 
 }
