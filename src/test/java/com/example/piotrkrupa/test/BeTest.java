@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -35,6 +37,20 @@ public class BeTest extends BaseTest {
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().post("https://automationintesting.online")
+                .then().log().all();
+    }
+
+    @Test
+    public void addPostFromMap() {
+        Map<String, Object> newPost = new HashMap<>();
+        newPost.put("Name", "Tomas");
+        newPost.put("Email", "TOmasowy");
+        newPost.put("Phone", "987654321");
+        newPost.put("Subject", "Subject Test");
+        newPost.put("Message", "Message test");
+
+        given().log().all().contentType(ContentType.JSON).body(newPost)
+                .when().post("104.21.25.4")
                 .then().log().all();
     }
 }
