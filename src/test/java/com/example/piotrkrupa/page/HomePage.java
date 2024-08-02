@@ -14,15 +14,28 @@ public class HomePage extends BasePage {
         this.driver = driver;
     }
 
-    public HomePage setNameForm(String name){
+    public HomePage setNameForm(String name) {
         findById("name").sendKeys(name);
         return this;
     }
 
-    public HomePage setEmailForm(String emailForm){
+    public HomePage setEmailForm(String emailForm) {
         findById("name").sendKeys(emailForm);
         return this;
     }
 
+    public HomePage setPhoneForm(String phoneForm) {
+        findById("phone").sendKeys(phoneForm);
+        return this;
+    }
 
+    public HomePage setSubjectForm(String subjectForm) {
+        findById("phone").sendKeys(subjectForm);
+        return this;
+    }
+
+    public HomePage setMessageForm(String messageForm) {
+        findById("phone").sendKeys(messageForm);
+        return this;
+    }
 }

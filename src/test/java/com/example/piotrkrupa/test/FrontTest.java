@@ -14,9 +14,9 @@ public class FrontTest extends BaseTest {
 
         navigateToHomePage();
         homePage.setNameForm("Piotr")
-                .setEmailForm("jakis@mail.pl");
-
-
-
+                .setEmailForm("jakis@mail.pl")
+                .setPhoneForm("987654321")
+                .setSubjectForm("something")
+                .setMessageForm("message 1");
     }
 }
