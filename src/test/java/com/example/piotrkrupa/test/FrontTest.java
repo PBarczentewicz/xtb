@@ -12,11 +12,21 @@ public class FrontTest extends BaseTest {
     @DisplayName("Wysyłka formularza kontaktowego")
     public void SendContactForm() throws InterruptedException {
 
+        String name = "Piotr";
+
+        //given:
         navigateToHomePage();
-        homePage.setNameForm("Piotr")
+
+        //when:
+        homePage.setNameForm(name)
                 .setEmailForm("jakis@mail.pl")
-                .setPhoneForm("987654321")
+                .setPhoneForm("987987654654321")
                 .setSubjectForm("something")
-                .setMessageForm("message 1");
+                .setMessageForm("message 1 message 1 message 1 message 1message 1 message 1")
+                .clickSubmit();
+
+        String excp = "Thanks for getting in touch " + name+ "!";
+        //then:
+        assertEquals(excp, homePage.getSuccesText(), "Imie nie jest poprawne");
     }
 }

@@ -3,10 +3,13 @@ package com.example.piotrkrupa.test;
 import com.example.piotrkrupa.base.BaseTest;
 import com.example.piotrkrupa.service.GetService;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.json.Json;
 import java.io.File;
+import java.text.ParsePosition;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +20,7 @@ public class BeTest extends BaseTest {
     @Test
     @DisplayName("TestBE")
     public void Send() throws InterruptedException {
-        File newPost = new File("src/test/java/com.example.piotrkrupa/test/PostTest.json");
+        File newPost = new File("com/example/piotrkrupa/test/PostTest.json");
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
                 .when().post("https://automationintesting.online")
@@ -36,7 +39,7 @@ public class BeTest extends BaseTest {
                 "}";
 
         given().log().all().contentType(ContentType.JSON).body(newPost)
-                .when().post("https://automationintesting.online")
+                .when().post("https://automationintesting.online/message/")
                 .then().log().all();
     }
 
