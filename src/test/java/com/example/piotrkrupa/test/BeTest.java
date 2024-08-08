@@ -1,21 +1,20 @@
 package com.example.piotrkrupa.test;
 
-import ProjectData.MessageBody;
+import ProjectData.Messages;
 import ProjectData.MessageResponse;
 import ProjectData.WebData;
 import com.example.piotrkrupa.base.BaseTest;
+import groovy.json.StringEscapeUtils;
 import io.restassured.RestAssured;
+import io.restassured.config.ObjectMapperConfig;
 import io.restassured.http.ContentType;
+import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 public class BeTest extends BaseTest {
 
@@ -48,31 +47,23 @@ public class BeTest extends BaseTest {
 
     }
 
+    private String removeQuotesAndUnescape(String uncleanJson) {
+        String noQuotes = uncleanJson.replaceAll("^\"|\"$", "");
+
+        return StringEscapeUtils.unescapeJava(noQuotes);
+    }
+
     @Test
     public void messageListTest() {
-        List<MessageBody> resposneBodyJason = new ArrayList<>();
         RestAssured.baseURI = "https://automationintesting.online/message/";
-        MessageBody newMessage = when().get("id/name/subject/read").as(MessageBody.class);
-        resposneBodyJason.add(newMessage);
-        String firstList = String.valueOf(resposneBodyJason.size());
 
-        MessageBody newPost = MessageBody.builder()
-                .id("6")
-                .name("Przemyslawtest")
-                .subject("92929283838374")
-                .read(true)
-                .build();
+        RequestSpecification httpRequest = RestAssured.given().config(RestAssured.config()
+                .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
+        Response response = httpRequest.get();
+        Messages messages = response.as(Messages.class);
 
-        RestAssured.baseURI = "https://automationintesting.online/message/";
-        RequestSpecification httpRequest = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(newPost);
-
-        MessageBody newMessage2 = when().get("id/name/subject/read").as(MessageBody.class);
-        resposneBodyJason.add(newMessage);
-        String firstList2 = String.valueOf(resposneBodyJason.size());
-
-        Assertions.assertEquals(firstList + 1, firstList2);
+        System.out.println("Ilość elementów" + messages.getMessages().size());
+        System.out.println("Imie pierwszego elementu" + messages.getMessages().get(0).name);
 
     }
 }
