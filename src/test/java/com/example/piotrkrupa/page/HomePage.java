@@ -1,9 +1,7 @@
 package com.example.piotrkrupa.page;
 
 import com.example.piotrkrupa.base.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -54,5 +52,33 @@ public class HomePage extends BasePage {
     public HomePage clickSubmit(){
         findByXpath("//*[@id=\"submitContact\"]").click();
         return  this;
+    }
+
+    public HomePage setCheckIn(String checkIn) {
+        findById("checkin").sendKeys(checkIn);
+        return this;
+    }
+
+    public HomePage setCheckOut(String checkOut) {
+        findById("checkout").sendKeys(checkOut);
+        return this;
+    }
+
+    public HomePage setLastName(String lastName) {
+        findById("lastname").sendKeys(lastName);
+        return this;
+    }
+    public HomePage setFirstName(String firstName) {
+        findById("firstname").sendKeys(firstName);
+        return this;
+    }
+
+    public HomePage clickBookButton(){
+        findByXpath("/html/body/div/div/div/div[4]/div/div[2]/div[3]/button[2]").click();
+        return  this;
+    }
+
+    public String getSuccesBookText() {
+        return findByXpath("/html/body/div[4]/div/div/div[1]/div[2]/p[1]").getText();
     }
 }

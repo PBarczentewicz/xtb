@@ -44,7 +44,6 @@ public class BeTest extends BaseTest {
         Assertions.assertEquals("92929283838374", responseBody.phone);
         Assertions.assertEquals("test subject", responseBody.subject);
         Assertions.assertEquals("message testmessage testmessage testmessage testmessage test", responseBody.description);
-
     }
 
     private String removeQuotesAndUnescape(String uncleanJson) {
@@ -64,6 +63,5 @@ public class BeTest extends BaseTest {
 
         System.out.println("Ilość elementów" + messages.getMessages().size());
         System.out.println("Imie pierwszego elementu" + messages.getMessages().get(0).name);
-
     }
 }

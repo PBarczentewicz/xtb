@@ -1,5 +1,6 @@
 package com.example.piotrkrupa.test;
 
+import ProjectData.BookingForm;
 import com.example.piotrkrupa.base.BaseTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,5 +29,27 @@ public class FrontTest extends BaseTest {
         String excp = "Thanks for getting in touch " + name+ "!";
         //then:
         assertEquals(excp, homePage.getSuccesText(), "Imie nie jest poprawne");
+    }
+    @Test
+    public void setRoomForm(){
+        navigateToHomePage();
+
+        homePage.setFirstName("Jan")
+                .setLastName("Testowy")
+                .setEmailForm("jan@testowy.pl")
+                .setPhoneForm("123456789987")
+                .setCheckIn("2024-08-01")
+                .setCheckOut("2024-08-03")
+                .clickBookButton();
+
+        String exception = "Booking Successful!" +
+                "Congratulations! Your booking has been confirmed for:";
+
+        assertEquals(exception, homePage.getSuccesBookText());
+
+
+
+
+
     }
 }
