@@ -61,7 +61,9 @@ public class BeTest extends BaseTest {
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
         Response response = httpRequest.get();
         Messages messages = response.as(Messages.class);
+        int size = messages.getMessages().size();
 
+        Assertions.assertEquals("Przemysław", messages.getMessages().get(size-1).name);
         System.out.println("Ilość elementów" + messages.getMessages().size());
         System.out.println("Imie pierwszego elementu" + messages.getMessages().get(0).name);
 
