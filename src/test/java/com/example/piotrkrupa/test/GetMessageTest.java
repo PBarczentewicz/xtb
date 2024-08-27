@@ -87,11 +87,11 @@ public class GetMessageTest extends BaseTest {
     @Test
     public void emptyForm() {
         MessageRequest newRequest = MessageRequest.builder()
-                .name("Przemyslaw")
-                .email("jsjsgmail.com")
-                .phone("92929283838374")
-                .subject("test subject")
-                .description("message testmessage testmessage testmessage testmessage test")
+                .name("")
+                .email("")
+                .phone("")
+                .subject("")
+                .description("")
                 .build();
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
@@ -124,11 +124,13 @@ public class GetMessageTest extends BaseTest {
         expectedResposne.add("Subject must be between 5 and 100 characters.");
 
         Assertions.assertEquals(listSize, getMessagesSize(get));
+        System.out.println("errro response to: " + errorResponse.fieldErrors);
 
-        for (int i=0; i < expectedResposne.size(); i++){
+        for (int i = 0; i < expectedResposne.size(); i++) {
             Assertions.assertEquals(expectedResposne.get(i), errorResponse.getFieldErrors().get(i), "bład wpisu na pozycji" + " " + i);
         }
     }
+
 
     @Test
     public void secondEmptyForm() {
