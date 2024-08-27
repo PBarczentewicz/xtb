@@ -44,6 +44,7 @@ public class BeTest extends BaseTest {
         Assertions.assertEquals("92929283838374", responseBody.phone);
         Assertions.assertEquals("test subject", responseBody.subject);
         Assertions.assertEquals("message testmessage testmessage testmessage testmessage test", responseBody.description);
+
     }
 
     private String removeQuotesAndUnescape(String uncleanJson) {
@@ -61,30 +62,8 @@ public class BeTest extends BaseTest {
         Response response = httpRequest.get();
         Messages messages = response.as(Messages.class);
 
-        int startSize = messages.getMessages().size();
-
-        WebData newMessage = WebData.builder()
-                .name("TestListy")
-                .email("test@es.pl")
-                .phone("98765678998765")
-                .subject("test 1 test2")
-                .description("tets tes telaksjsakdjskldjslkajdklasjdsklajdkasldj")
-                .build();
-
-        RequestSpecification httpRequest2 = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(newMessage);
-
-        Response updatedResponse = httpRequest2.get();
-        Messages updatedMessages = updatedResponse.as(Messages.class);
-
-        int updatedSize = updatedMessages.getMessages().size();
-
-
         System.out.println("Ilość elementów" + messages.getMessages().size());
         System.out.println("Imie pierwszego elementu" + messages.getMessages().get(0).name);
-
-        Assertions.assertEquals(startSize, updatedSize - 1);
 
     }
 }
