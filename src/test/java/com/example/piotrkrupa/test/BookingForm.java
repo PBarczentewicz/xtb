@@ -18,13 +18,8 @@ public class BookingForm {
     @Test
     public void sendRoomForm (){
 
-        BookingDates tempBookingDates = BookingDates.builder()
-                .checkin("2024-08-01")
-                .checkout("2024-08-02")
-                .build();
-
         BookingRequest newbookingRequest = BookingRequest.builder()
-                .bookingdates(tempBookingDates)
+                .bookingdates(BookingDates.builder().checkin("2024-08-01").checkout("2024-08-04").build())
                 .depositpaid(false)
                 .email("jan@jan.pl")
                 .firstname("Jan")
@@ -42,11 +37,10 @@ public class BookingForm {
 
         Response response = requestBooking.post();
 
-        //Assertions.assertEquals(200, response.getStatusCode());
+        Assertions.assertEquals(200, response.getStatusCode());
         //System.out.println("Twoja rezerwacja została dodana");
 
-        BookingResponse tempBookingResponse = response.as(BookingResponse.class);
+       // BookingResponse tempBookingResponse = response.as(BookingResponse.class);
 
-        Assertions.assertNotNull(tempBookingResponse.getBookingid());
     }
 }

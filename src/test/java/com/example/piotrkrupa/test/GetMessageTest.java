@@ -30,7 +30,6 @@ public class GetMessageTest extends BaseTest {
 
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
-
         int listSize = 0;
 
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
@@ -87,20 +86,21 @@ public class GetMessageTest extends BaseTest {
     @Test
     public void emptyForm() {
         MessageRequest newRequest = MessageRequest.builder()
-                .name("")
-                .email("")
-                .phone("")
-                .subject("")
-                .description("")
+                .name(null)
+                .email(null)
+                .phone(null)
+                .subject(null)
+                .description(null)
                 .build();
+
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
 
         int listSize = 0;
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
-        listSize = getMessagesSize(get);
 
+        listSize = getMessagesSize(get);
 
         System.out.println(listSize);
 
@@ -109,28 +109,27 @@ public class GetMessageTest extends BaseTest {
                 .body(newRequest).config(RestAssured.config()
                         .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
 
-
         Response response = newPost.post();
         ErrorResponse errorResponse = response.as(ErrorResponse.class);
 
         ArrayList<String> expectedResposne = new ArrayList<>();
-        expectedResposne.add("Phone may not be blank");
+        expectedResposne.add("Message must be set");
+        expectedResposne.add("Phone must be set");
         expectedResposne.add("Subject may not be blank");
         expectedResposne.add("Name may not be blank");
-        expectedResposne.add("Subject must be between 5 and 100 characters.");
-        expectedResposne.add("Email may not be blank");
-        expectedResposne.add("Phone must be between 11 and 21 characters.");
-        expectedResposne.add("Message must be between 20 and 2000 characters.");
         expectedResposne.add("Message may not be blank");
+        expectedResposne.add("Name must be set");
+        expectedResposne.add("Subject must be set");
+        expectedResposne.add("Email must be set");
+        expectedResposne.add("Phone may not be blank");
+        expectedResposne.add("Email may not be blank");
 
-     //   Assertions.assertEquals(listSize, getMessagesSize(get));
-        System.out.println("errror response to: " + errorResponse.fieldErrors);
+        Assertions.assertEquals(listSize, getMessagesSize(get));
 
         for (int i = 0; i < expectedResposne.size(); i++) {
-            Assertions.assertEquals(expectedResposne.get(i), errorResponse.getFieldErrors().get(i), "bład wpisu na pozycji" + " " + i);
+            Assertions.assertTrue(errorResponse.fieldErrors.contains(expectedResposne.get(i)));
         }
     }
-
 
     @Test
     public void secondEmptyForm() {

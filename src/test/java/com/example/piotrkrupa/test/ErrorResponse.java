@@ -13,9 +13,4 @@ public class ErrorResponse {
     String error;
     String errorMessage;
     ArrayList <String> fieldErrors;
-
-
-
-
-
 }

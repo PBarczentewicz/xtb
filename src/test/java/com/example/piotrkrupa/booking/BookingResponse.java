@@ -10,6 +10,6 @@ import lombok.Setter;
 public class BookingResponse {
 
     String bookingid;
-    String booking;
+    Booking booking;
 
 }

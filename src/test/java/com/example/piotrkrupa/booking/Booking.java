@@ -3,7 +3,9 @@ import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
+@Builder
+@Getter
+@Setter
 public class Booking {
 
     String bookingid;
@@ -11,6 +13,6 @@ public class Booking {
     String firstname;
     String lastname;
     boolean depositpaid;
-    String bookingdates;
+    BookingDates bookingdates;
 
 }
