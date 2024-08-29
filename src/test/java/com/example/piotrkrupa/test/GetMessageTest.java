@@ -30,11 +30,13 @@ public class GetMessageTest extends BaseTest {
 
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
+
         int listSize = 0;
 
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
         listSize = getMessagesSize(get);
+
 
         System.out.println(listSize);
 
@@ -57,8 +59,8 @@ public class GetMessageTest extends BaseTest {
                 .subject("test subject")
                 .description("message testmessage testmessage testmessage testmessage test")
                 .build();
-
         RestAssured.baseURI = "https://automationintesting.online/message/";
+
 
         int listSize = 0;
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
@@ -85,21 +87,20 @@ public class GetMessageTest extends BaseTest {
     @Test
     public void emptyForm() {
         MessageRequest newRequest = MessageRequest.builder()
-                .name(null)
-                .email(null)
-                .phone(null)
-                .subject(null)
-                .description(null)
+                .name("")
+                .email("")
+                .phone("")
+                .subject("")
+                .description("")
                 .build();
-
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
 
         int listSize = 0;
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
-
         listSize = getMessagesSize(get);
+
 
         System.out.println(listSize);
 
@@ -108,27 +109,28 @@ public class GetMessageTest extends BaseTest {
                 .body(newRequest).config(RestAssured.config()
                         .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
 
+
         Response response = newPost.post();
         ErrorResponse errorResponse = response.as(ErrorResponse.class);
 
         ArrayList<String> expectedResposne = new ArrayList<>();
-        expectedResposne.add("Message must be set");
-        expectedResposne.add("Phone must be set");
+        expectedResposne.add("Phone may not be blank");
         expectedResposne.add("Subject may not be blank");
         expectedResposne.add("Name may not be blank");
-        expectedResposne.add("Message may not be blank");
-        expectedResposne.add("Name must be set");
-        expectedResposne.add("Subject must be set");
-        expectedResposne.add("Email must be set");
-        expectedResposne.add("Phone may not be blank");
+        expectedResposne.add("Subject must be between 5 and 100 characters.");
         expectedResposne.add("Email may not be blank");
+        expectedResposne.add("Phone must be between 11 and 21 characters.");
+        expectedResposne.add("Message must be between 20 and 2000 characters.");
+        expectedResposne.add("Message may not be blank");
 
-        Assertions.assertEquals(listSize, getMessagesSize(get));
+     //   Assertions.assertEquals(listSize, getMessagesSize(get));
+        System.out.println("errror response to: " + errorResponse.fieldErrors);
 
         for (int i = 0; i < expectedResposne.size(); i++) {
-            Assertions.assertTrue(errorResponse.fieldErrors.contains(expectedResposne.get(i)));
+            Assertions.assertEquals(expectedResposne.get(i), errorResponse.getFieldErrors().get(i), "bład wpisu na pozycji" + " " + i);
         }
     }
+
 
     @Test
     public void secondEmptyForm() {

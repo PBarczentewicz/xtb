@@ -3,6 +3,7 @@ package com.example.piotrkrupa.test;
 import com.example.piotrkrupa.booking.BookingDates;
 import com.example.piotrkrupa.booking.BookingRequest;
 import com.example.piotrkrupa.booking.BookingResponse;
+import com.example.piotrkrupa.booking.BookingServices;
 import io.restassured.RestAssured;
 import io.restassured.config.ObjectMapperConfig;
 import io.restassured.http.ContentType;
@@ -49,6 +50,10 @@ public class BookingFormTest {
 
     @Test
     public void sendRoomFormWithSearchihDates() {
+
+        BookingServices bookingServices = new BookingServices();
+
+        System.out.println(bookingServices.getBookingDatedForRoom("1"));
 
         BookingRequest newbookingRequest = BookingRequest.builder()
                 .bookingdates(BookingDates.builder().checkin("2024-09-05").checkout("2024-09-06").build())

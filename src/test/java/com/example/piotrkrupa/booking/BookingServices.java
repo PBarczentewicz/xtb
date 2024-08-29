@@ -9,17 +9,15 @@ import java.util.ArrayList;
 
 public class BookingServices {
 
-    public ArrayList<Booking> getBookingDatedForRoom (String roomId){
-        RestAssured.baseURI = "https://automationintesting.online/report/room/";
+    public Report getBookingDatedForRoom (String roomId){
+        RestAssured.baseURI = "https://automationintesting.online/report/room/" + roomId;
 
         RequestSpecification roomRequest = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .queryParam("roomId", roomId);
+                .contentType(ContentType.JSON);
 
         Response response = roomRequest.get();
+        Report report = response.as(Report.class);
 
-        ArrayList <Booking> bookingArray = new ArrayList<>();
-
-
+        return report;
     }
 }
