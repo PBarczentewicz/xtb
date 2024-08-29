@@ -36,7 +36,6 @@ public class GetMessageTest extends BaseTest {
                 .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
         listSize = getMessagesSize(get);
 
-
         System.out.println(listSize);
 
         RequestSpecification newPost = RestAssured.given()
@@ -58,8 +57,8 @@ public class GetMessageTest extends BaseTest {
                 .subject("test subject")
                 .description("message testmessage testmessage testmessage testmessage test")
                 .build();
-        RestAssured.baseURI = "https://automationintesting.online/message/";
 
+        RestAssured.baseURI = "https://automationintesting.online/message/";
 
         int listSize = 0;
         RequestSpecification get = RestAssured.given().config(RestAssured.config()
