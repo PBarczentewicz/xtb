@@ -13,7 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.time.Duration;
 
 public class BaseTest {
-    WebDriver driver;
+    protected WebDriver driver;
     DriverManager driverManager;
     protected CommonPage commonPage;
     protected HomePage homePage;
@@ -26,7 +26,7 @@ public class BaseTest {
         driver = driverManager.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://automationintesting.online/");
+        driver.get("https://automationintesting.online/#/admin");
         navigateToCommonPage();
     }
 

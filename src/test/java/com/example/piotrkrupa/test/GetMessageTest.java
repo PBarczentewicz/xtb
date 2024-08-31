@@ -59,6 +59,7 @@ public class GetMessageTest extends BaseTest {
                 .subject("test subject")
                 .description("message testmessage testmessage testmessage testmessage test")
                 .build();
+
         RestAssured.baseURI = "https://automationintesting.online/message/";
 
 

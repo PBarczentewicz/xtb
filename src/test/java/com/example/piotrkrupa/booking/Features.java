@@ -4,13 +4,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 @Builder
 @Getter
 @Setter
-public class Report {
-    ArrayList<Object> arrayLista;
+public class Features {
+
+    String wifi;
+    String refreshment;
+    String tv;
+    String safe;
+    String radio;
+    String views;
 
 }
