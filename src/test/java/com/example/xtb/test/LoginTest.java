@@ -19,6 +19,7 @@ public class LoginTest extends BaseTest {
         homePage.waitForCompleteWebsite();
         homePage.assertLoggin();
     }
+
     @ParameterizedTest
     @CsvSource({
             "p.barczentewicz@gmail.com, HasloTestowe1@, success",

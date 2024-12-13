@@ -24,8 +24,4 @@ public class BasePage {
     public WebElement findByXpath(String xpath) {
         return  driver.findElement(By.xpath(xpath));
     }
-
-    public Boolean isElementExist(String xpath){
-        return  !driver.findElements(By.xpath(xpath)).isEmpty();
-    }
 }

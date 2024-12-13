@@ -4,6 +4,9 @@ import com.example.xtb.base.BasePage;
 import com.example.xtb.service.Utylities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,26 +18,33 @@ public class HomePage extends BasePage {
 
     private final WebDriver driver;
 
+    @FindBy(xpath = "//input[@name='xslogin']")
+    private WebElement setEmail;
+    @FindBy(xpath = "//input[@name='xspass']")
+    private WebElement setPassword;
+    @FindBy(xpath = "//input[@value='Login']")
+    private WebElement clickLoginButton;
+
     public HomePage(WebDriver driver) {
         super(driver);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public HomePage setEmail(String email) {
-        findByXpath("//input[@name='xslogin']").sendKeys(email);
+        setEmail.sendKeys(email);
         return this;
     }
 
     public HomePage setPassword(String password) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.attributeToBeNotEmpty(findByXpath("//input[@name='xslogin']"), "value"));
-
-        findByXpath("//input[@name='xspass']").sendKeys(password);
+        wait.until(ExpectedConditions.attributeToBeNotEmpty(setEmail, "value"));
+        setPassword.sendKeys(password);
         return this;
     }
 
     public HomePage clickLoginButton() {
-        findByXpath("//input[@value='Login']").click();
+        clickLoginButton.click();
         return this;
     }
 
